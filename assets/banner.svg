@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="1200" height="300" role="img" aria-label="omnirush-hermes — local OpenAI-compatible bridge for OmniRush models">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1020"/>
+      <stop offset="55%" stop-color="#12183a"/>
+      <stop offset="100%" stop-color="#1b1030"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5eead4"/>
+      <stop offset="50%" stop-color="#7c9cff"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="300" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1200" height="4" fill="url(#accent)"/>
+
+  <!-- left: client -->
+  <g fill="none" stroke="#7c9cff" stroke-width="3" opacity="0.95">
+    <rect x="70" y="108" width="180" height="84" rx="12"/>
+  </g>
+  <text x="160" y="146" fill="#cfe0ff" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="19" text-anchor="middle">Hermes</text>
+  <text x="160" y="171" fill="#7f93c9" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14" text-anchor="middle">Cursor · Aider · SDK</text>
+  <text x="160" y="228" fill="#5b6b96" font-family="ui-monospace, Menlo, monospace" font-size="13" text-anchor="middle">chat/completions</text>
+
+  <!-- arrow 1 -->
+  <g stroke="url(#accent)" stroke-width="3" fill="none">
+    <line x1="262" y1="150" x2="404" y2="150"/>
+    <path d="M404 150 l-14 -8 v16 z" fill="#7c9cff" stroke="none"/>
+  </g>
+
+  <!-- middle: proxy -->
+  <rect x="418" y="86" width="364" height="128" rx="16" fill="#0f1733" stroke="#5eead4" stroke-width="3"/>
+  <text x="600" y="128" fill="#eaf6ff" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="30" font-weight="600" text-anchor="middle">omnirush-proxy</text>
+  <text x="600" y="158" fill="#8be0cf" font-family="ui-monospace, Menlo, monospace" font-size="15" text-anchor="middle">127.0.0.1:20129 · zero dependencies</text>
+  <text x="600" y="186" fill="#5b6b96" font-family="ui-monospace, Menlo, monospace" font-size="14" text-anchor="middle">translates both dialects, streams SSE</text>
+
+  <!-- arrow 2 -->
+  <g stroke="url(#accent)" stroke-width="3" fill="none">
+    <line x1="794" y1="150" x2="936" y2="150"/>
+    <path d="M936 150 l-14 -8 v16 z" fill="#c084fc" stroke="none"/>
+  </g>
+
+  <!-- right: gateway -->
+  <rect x="948" y="108" width="182" height="84" rx="12" fill="none" stroke="#c084fc" stroke-width="3"/>
+  <text x="1039" y="146" fill="#efe0ff" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="19" text-anchor="middle">omnirush.ai</text>
+  <text x="1039" y="171" fill="#9f86c9" font-family="ui-monospace, Menlo, monospace" font-size="14" text-anchor="middle">GPT-6 Astra · Sol</text>
+  <text x="1039" y="228" fill="#5b6b96" font-family="ui-monospace, Menlo, monospace" font-size="13" text-anchor="middle">/v1/responses</text>
+
+  <!-- footer -->
+  <text x="70" y="272" fill="#5b6b96" font-family="ui-monospace, Menlo, monospace" font-size="14">
+    free GPT-6 models in any OpenAI-compatible client · OAuth kept local · MIT
+  </text>
+</svg>

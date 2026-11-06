@@ -98,7 +98,8 @@ ok "url: ${URL:-unknown}"
 
 # Final independent check: ask the remote, not ourselves, what it received.
 if [ -n "$URL" ]; then
-  REMOTE_FILES="$(gh api "repos/$TARGET/contents" --jq '.[].name' 2>/dev/null | tr '\n' ' ' || true)"
+  SLUG="$(gh repo view "$TARGET" --json nameWithOwner --jq .nameWithOwner 2>/dev/null || echo "$TARGET")"
+  REMOTE_FILES="$(gh api "repos/$SLUG/contents" --jq '.[].name' 2>/dev/null | tr '\n' ' ' || true)"
   ok "remote top level: $REMOTE_FILES"
   case "$REMOTE_FILES" in
     *tokens.json*|*.env*|*.log*) die "a sensitive file reached the remote — make the repo private NOW" ;;

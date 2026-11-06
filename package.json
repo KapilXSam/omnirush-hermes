@@ -1,0 +1,83 @@
+{
+  "name": "omnirush-hermes",
+  "version": "1.1.0",
+  "description": "Use OmniRush's free GPT-6 models (Astra, Sol) from Hermes Agent, Cursor, Aider or any OpenAI-compatible client through one zero-dependency local proxy.",
+  "keywords": [
+    "omnirush",
+    "omnirush-ai",
+    "omnirush-api",
+    "gpt-6",
+    "gpt-6-astra",
+    "gpt-6-sol",
+    "hermes-agent",
+    "hermes",
+    "openai-compatible",
+    "openai-api",
+    "llm-proxy",
+    "reverse-proxy",
+    "api-bridge",
+    "oauth",
+    "device-flow",
+    "coding-agent",
+    "claude-code",
+    "cursor",
+    "aider",
+    "continue",
+    "codex-cli",
+    "responses-api",
+    "chat-completions",
+    "sse-streaming",
+    "tool-calling",
+    "self-hosted",
+    "zero-dependencies",
+    "nodejs",
+    "macos",
+    "linux"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "omnirush-proxy": "src/proxy.mjs"
+  },
+  "main": "src/proxy.mjs",
+  "files": [
+    "src/",
+    "scripts/",
+    "tests/",
+    "examples/",
+    "docs/",
+    "install.sh",
+    "uninstall.sh",
+    "README.md",
+    "SETUP.md",
+    "SECURITY.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "start": "node src/proxy.mjs",
+    "test": "npm run test:unit && npm run test:integration",
+    "test:unit": "node tests/smoke.mjs",
+    "test:integration": "node tests/server.mjs",
+    "test:live": "bash scripts/test-proxy.sh",
+    "lint": "node --check src/proxy.mjs && node --check tests/smoke.mjs && for f in install.sh uninstall.sh scripts/*.sh; do bash -n \"$f\"; done && echo 'lint ok'",
+    "scan": "bash scripts/scan-secrets.sh --history",
+    "service": "bash scripts/ctl.sh",
+    "status": "bash scripts/ctl.sh status",
+    "logs": "bash scripts/ctl.sh logs",
+    "reauth": "bash scripts/ctl.sh reauth",
+    "publish:check": "bash scripts/publish.sh --check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KapilXSam/omnirush-hermes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/KapilXSam/omnirush-hermes/issues"
+  },
+  "homepage": "https://github.com/KapilXSam/omnirush-hermes#readme",
+  "dependencies": {},
+  "devDependencies": {}
+}

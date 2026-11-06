@@ -1,0 +1,73 @@
+name: Bug report
+description: Something is broken — the proxy, the installer, or a client integration.
+title: "[bug] "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. **Never paste tokens, `tokens.json` contents, or your account
+        email** — redact them. If you already pasted one, run `omnirush2api login` again to
+        mint a fresh token afterwards.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where does it break?
+      options:
+        - The proxy (requests fail / wrong shape)
+        - Install / service (launchd, systemd)
+        - Hermes integration (provider, aliases)
+        - Another client (Cursor, Aider, Continue, Codex...)
+        - Docs / examples
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: Actual behaviour, with the real error text.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. ./install.sh
+        2. scripts/ctl.sh status  →  ...
+        3. curl -s http://127.0.0.1:20129/v1/health  →  ...
+    validations:
+      required: true
+  - type: textarea
+    id: health
+    attributes:
+      label: Health and logs
+      description: Output of `scripts/ctl.sh status` and the last ~30 lines of `scripts/ctl.sh logs`, with secrets removed.
+      render: shell
+    validations:
+      required: false
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: OS, `node --version`, this repo's version, and `npm view omnirush version` if known.
+      placeholder: "macOS 26.2 · node v22.11.0 · omnirush-hermes 1.1.0 · official CLI 2.8.2"
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Confirmations
+      options:
+        - label: I am using my own OmniRush account.
+          required: true
+        - label: I have not pasted any credential into this issue.
+          required: true
+        - label: I searched existing issues first.
+          required: true

@@ -1,0 +1,35 @@
+name: Feature request
+description: Suggest an improvement, a new client integration, or a compatibility fix.
+title: "[feature] "
+labels: ["enhancement", "triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe the situation, not the implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Concrete behaviour you would like. Config snippets welcome.
+    validations:
+      required: true
+  - type: input
+    id: client
+    attributes:
+      label: Client involved (if any)
+      placeholder: "Cursor 0.42 / Aider 0.86 / Hermes Agent 1.x"
+    validations:
+      required: false
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - label: This can be done without adding a runtime dependency.
+          required: false
+        - label: I can help test it against a real client.
+          required: false

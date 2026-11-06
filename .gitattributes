@@ -1,0 +1,16 @@
+# Normalise line endings and keep diffs honest.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.zip binary
+*.gz binary
+*.tgz binary
+
+# Never let a credential store in, even if someone forces an add.
+tokens.json export-ignore
+.env export-ignore
+*.log export-ignore
+
+# Linguist: keep the repository language bar meaningful.
+*.mjs linguist-language=JavaScript
