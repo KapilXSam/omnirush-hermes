@@ -100,7 +100,8 @@ ok('message names the missing credential', /refresh token|credentials/i.test(err
 ok('alias is accepted by model validation (not a 404)', noCreds.status !== 404, `got ${noCreds.status}`);
 
 console.log('== bad credentials present ==');
-fs.writeFileSync(STORE, JSON.stringify({ tokens: [{ refreshToken: 'omr_invalid_token_for_tests', email: 'nobody@example.invalid' }] }), { mode: 0o600 });
+// Deliberately invalid test fixture, not a credential. omnirush:allow-secret-scan
+fs.writeFileSync(STORE, JSON.stringify({ tokens: [{ refreshToken: 'omr_invalid_token_for_tests', email: 'nobody@example.invalid' }] }), { mode: 0o600 }); // omnirush:allow-secret-scan
 ok('seeded store is rejected upstream, still JSON', [502, 401].includes((await post({ model: 'sol', messages: [{ role: 'user', content: 'hi' }] })).status));
 
 console.log('== still alive ==');

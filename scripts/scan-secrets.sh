@@ -42,25 +42,31 @@ scan_targets() {
 }
 
 echo "== scanning $( [ "$MODE" = "--all" ] && echo 'working tree' || echo 'tracked files' ) =="
+# Inline escape hatch for deliberate fixtures. Two documented forms:
+#   · a line carrying the marker `omnirush:allow-secret-scan`
+#   · the exact placeholder value `omr_invalid_token_for_tests` used by tests/server.mjs
+ALLOW='omnirush:allow-secret-scan|omr_invalid_token_for_tests'
 for pat in "${PATTERNS[@]}"; do
   found="$(scan_targets | xargs -0 grep -nEI -- "$pat" 2>/dev/null \
-            | grep -v 'sk-omnirush' || true)"
+            | grep -v 'sk-omnirush' | grep -vE "$ALLOW" || true)"
   if [ -n "$found" ]; then
     printf '\033[31mHIT\033[0m pattern: %s\n%s\n' "$pat" "$found"
     hits=$((hits+1))
   fi
 done
 
-# Ignored-but-tracked files are the usual leak vector.
+# Ignored-but-tracked files are the usual leak vector. Example/template env files are fine.
 if git rev-parse --git-dir >/dev/null 2>&1; then
-  bad="$(git ls-files | grep -E '(^|/)(tokens\.json|\.env|\.env\..*|.*\.log|.*\.plist|.*\.service)$' || true)"
+  bad="$(git ls-files | grep -E '(^|/)(tokens\.json|\.env|\.env\..*|.*\.log|.*\.plist|.*\.service)$' \
+          | grep -vE '(^|/)\.env\.(example|sample|template)$' || true)"
   [ -n "$bad" ] && { printf '\033[31mHIT\033[0m sensitive paths tracked:\n%s\n' "$bad"; hits=$((hits+1)); }
 fi
 
 if [ "$MODE" = "--history" ]; then
   echo "== scanning git history =="
   for pat in "${PATTERNS[@]}"; do
-    found="$(git log -p --all 2>/dev/null | grep -nEI -- "$pat" | grep -v 'sk-omnirush' | head -5 || true)"
+    found="$(git log -p --all 2>/dev/null | grep -nEI -- "$pat" \
+              | grep -v 'sk-omnirush' | grep -vE "$ALLOW" | head -5 || true)"
     [ -n "$found" ] && { printf '\033[31mHIT\033[0m history pattern %s\n%s\n' "$pat" "$found"; hits=$((hits+1)); }
   done
 fi

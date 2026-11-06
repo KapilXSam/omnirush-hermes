@@ -47,6 +47,22 @@ attaches the OAuth bearer upstream.
 - [ ] One proxy per token store. The upstream rotates the refresh token on every refresh;
       two processes sharing a store will invalidate each other.
 
+## The secret-scan allowlist
+
+`scripts/scan-secrets.sh` runs over the working tree **and** every commit. Two documented
+exceptions exist, and nothing else:
+
+| Exception | Why | Where |
+|---|---|---|
+| a line carrying the marker `omnirush:allow-secret-scan` | deliberate fake in a test fixture | `tests/server.mjs` |
+| the exact literal `omr_invalid_token_for_tests` | the same placeholder, so history from before the marker existed stays clean | `tests/server.mjs` |
+| `sk-omnirush` | the local dummy client key, not a credential to anything upstream | docs, examples, config |
+
+A pull request that widens either list needs a justification in the description. Adding a real
+value to the allowlist defeats the purpose of the gate — if a scan ever reports a hit you do
+not recognise, treat it as a live leak: rotate the credential first
+(`omnirush2api login`), then clean the file and the history.
+
 ## Reporting a vulnerability
 
 Open a private security advisory (Security → Advisories → New draft) rather than a public
